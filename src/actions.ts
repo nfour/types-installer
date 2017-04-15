@@ -33,7 +33,7 @@ export function getDependencies(
 export async function installTypes(dependencies: string[], { toDev = false, selections, pwd = '' }) {
   const { stdout: yarnPath } = await shell('which yarn');
 
-  const installer = !yarnPath ? 'npm install --save' : `${yarnPath} add`;
+  const installer = !yarnPath ? 'npm install --save' : `yarn add`;
   const directory = pwd ? `cd ${pwd} &&` : '';
 
   const installs = dependencies.map(async (key) => {
