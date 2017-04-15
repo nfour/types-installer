@@ -1,12 +1,16 @@
 {
   "name": "types-installer",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Installs from @types for your existing dependencies",
   "main": "./actions",
   "author": "nfour <novus.nfour@gmail.com>",
   "license": "MIT",
   "keywords": [
-    "typescript", "types", "typings", "install", "cli"
+    "typescript",
+    "types",
+    "typings",
+    "install",
+    "cli"
   ],
   "bin": {
     "types-installer": "./bin/types-installer.js",
