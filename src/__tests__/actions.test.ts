@@ -10,6 +10,8 @@ describe('actions', () => {
   let samplePackage: any;
 
   beforeAll(() => {
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
+
     expectedPackage = require('./testProject/expected.package.json');
     samplePackage = require('./testProject/sample.package.json');
 
