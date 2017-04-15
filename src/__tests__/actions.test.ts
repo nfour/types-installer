@@ -29,6 +29,11 @@ describe('actions', () => {
 
     const actualPackage = require(actualPackagePath);
 
-    expect(actualPackage).toEqual(expectedPackage);
+    [
+      [ actualPackage.dependencies, expectedPackage.dependencies ],
+      [ actualPackage.devDependencies, expectedPackage.devDependencies ],
+    ].forEach(([actual, expected]) => {
+      expect(Object.keys(actual).sort()).toEqual(Object.keys(expected).sort());
+    });
   });
 });

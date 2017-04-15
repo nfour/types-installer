@@ -14,7 +14,7 @@
     "lint": "tslint src",
     "coverage": "jest --config .jestrc --coverage",
     "release": "cd dist && npm publish",
-    "build": "source ./scripts/build"
+    "build": "./scripts/build"
   },
   "dependencies": {
     "chalk": "^1.1.3",
