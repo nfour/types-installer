@@ -5,8 +5,10 @@
 A CLI which updates and populates missing `@types/*` for your dependencies.
 
 ## Install
-Globally `yarn global add types-installer`
-or locally `yarn add types-installer`
+- **Globally**: `yarn global add types-installer`
+  - Then run `types-installer`
+- **Locally**: `yarn add types-installer`
+  - Then run `yarn types-installer`
 
 ## CLI
 
