@@ -1,6 +1,6 @@
 {
   "name": "types-installer",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Installs from @types for your existing dependencies",
   "main": "index.js",
   "author": "nfour <novus.nfour@gmail.com>",
