@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es2015",
+    "module": "commonjs",
+    "jsx": "react",
+    "moduleResolution": "node",
+    "outDir":"./dist",
+    "inlineSourceMap": true,
+    "inlineSources": true,
+    "allowSyntheticDefaultImports": true,
+    "noUnusedLocals": true
+  },
+  "exclude": [ "dist" ],
+  "include": [ "src/**/*" ]
+}

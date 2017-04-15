@@ -1,0 +1,14 @@
+{
+  "name": "types-installer",
+  "version": "0.1.0",
+  "description": "Installs from @types for your existing dependencies",
+  "main": "index.js",
+  "author": "nfour <novus.nfour@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "jest": "^19.0.2",
+    "ts-jest": "^19.0.9",
+    "ts-node": "^3.0.2",
+    "typescript": "^2.2.2"
+  }
+}
