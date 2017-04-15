@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/nfour/types-installer.svg?branch=master)](https://travis-ci.org/nfour/types-installer)
+
 # Types Installer
 
 A CLI which updates and populates missing `@types/*` for your dependencies.
