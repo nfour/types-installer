@@ -28,6 +28,7 @@
     "@types/inquirer": "^0.0.32",
     "@types/jest": "^19.2.2",
     "@types/node": "^7.0.12",
+    "@types/typescript": "^2.0.0",
     "jest": "^19.0.2",
     "ts-jest": "^19.0.9",
     "ts-node": "^3.0.2",
