@@ -6,8 +6,12 @@ import { join } from 'path';
 export interface IDependencies { [key: string]: string; }
 export interface ISelections { [key: string]: IDependencies; }
 
-export function getDependencies({ selection = 'all' } = {}) {
-  const packageJson = require(join(process.cwd(), 'package.json'));
+export function getDependencies(
+  { selection = 'all', packageJson }: {
+    selection?: string,
+    packageJson?: any,
+  } = {}) {
+  packageJson = packageJson || require(join(process.cwd(), 'package.json'));
 
   const selections: ISelections = {
     dependencies: packageJson.dependencies,
@@ -26,10 +30,11 @@ export function getDependencies({ selection = 'all' } = {}) {
   return { keys, selected, selections };
 }
 
-export async function installTypes(dependencies: string[], { toDev = false, selections }) {
+export async function installTypes(dependencies: string[], { toDev = false, selections, pwd = '' }) {
   const { stdout: yarnPath } = await shell('which yarn');
 
   const installer = !yarnPath ? 'npm install --save' : `${yarnPath} add`;
+  const directory = pwd ? `cd ${pwd} &&` : '';
 
   const installs = dependencies.map(async (key) => {
     const typeKey = `@types/${key}`;
@@ -37,11 +42,12 @@ export async function installTypes(dependencies: string[], { toDev = false, sele
     const saveTo = toDev || key in selections.devDependencies ? '--dev' : '';
 
     try {
-      const { stdout } = await shell(`${installer} ${saveTo} ${typeKey}`, { env: { FORCE_COLOR: true } });
+      const { stdout } = await shell(`${directory} ${installer} ${saveTo} ${typeKey}`, { env: { FORCE_COLOR: true } });
       console.log(c.green(typeKey), 'found');
       console.log('\n', stdout, '\n');
     } catch (err) {
       console.log(c.yellow(typeKey), 'not found or failed to install');
+      console.error(c.red(err));
     }
   });
 

@@ -10,6 +10,7 @@
     "types-installer-src": "./src/bin/types-installer-src.ts"
   },
   "scripts": {
+    "test": "jest --config .jestrc",
     "build": "source ./scripts/build"
   },
   "dependencies": {

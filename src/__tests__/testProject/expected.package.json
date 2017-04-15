@@ -1,0 +1,12 @@
+{
+  "name": "testProject",
+  "version": "1.0.0",
+  "devDependencies": {
+    "@types/jest": "^19.2.2",
+    "jest": "^19.0.2"
+  },
+  "dependencies": {
+    "@types/chalk": "^0.4.31",
+    "chalk": "^1.1.3"
+  }
+}
