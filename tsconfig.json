@@ -1,14 +1,18 @@
 {
   "compilerOptions": {
-    "target": "es2015",
+    "target": "es5",
     "module": "commonjs",
-    "jsx": "react",
     "moduleResolution": "node",
     "outDir":"./dist",
+    "declaration": true,
     "inlineSourceMap": true,
     "inlineSources": true,
     "allowSyntheticDefaultImports": true,
-    "noUnusedLocals": true
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
+    "lib": [
+      "es2015"
+    ]
   },
   "exclude": [ "dist" ],
   "include": [ "src/**/*" ]

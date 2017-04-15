@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Clean
+rm -rf dist
+mkdir dist
+
+# Copy latent files into ./dist
+cp * dist 2>&1 | grep -v 'omitting directory'
+cp .* dist 2>&1 | grep -v 'omitting directory'
+
+# Build typescript
+yarn tsc
+
+# Copy latent files from source, recursively
+cd src
+find . -name "*.json" -type f -exec cp --parents {} ../dist/ \;
+cd ..
+
+# Make bins executable
+chmod +x ./dist/bin/*
+
