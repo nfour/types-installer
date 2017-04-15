@@ -50,7 +50,6 @@ A CLI which updates and populates missing `@types/*` for your dependencies.
 % types-installer install
 
   Installing all @type dependencies...
-  ? select jest (Installed), ts-jest , ts-node , tslint , tslint-eslint-rules , typescript , chalk , commander (Installed), execa , inquirer
 
   @types/ts-jest not found or failed to install
   @types/tslint-eslint-rules not found or failed to install
