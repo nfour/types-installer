@@ -13,7 +13,7 @@ install:
 script:
   - yarn lint
   - yarn build
-  - yarn coverage
+  - DEBUG=true yarn coverage
 
 deploy:
   provider: script
