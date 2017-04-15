@@ -42,7 +42,10 @@ export async function installTypes(dependencies: string[], { toDev = false, sele
     const saveTo = toDev || key in selections.devDependencies ? '--dev' : '';
 
     try {
-      const { stdout } = await shell(`${directory} ${installer} ${saveTo} ${typeKey}`, { env: { FORCE_COLOR: true } });
+      const { stdout } = await shell(`${directory} ${installer} ${saveTo} ${typeKey}`, {
+        env: { ...process.env, FORCE_COLOR: true },
+      });
+
       console.log(c.green(typeKey), 'found');
       console.log('\n', stdout, '\n');
     } catch (err) {
