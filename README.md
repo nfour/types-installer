@@ -1,3 +1,4 @@
+[![npm version](https://badge.fury.io/js/types-installer.svg)](https://badge.fury.io/js/types-installer)
 [![Build Status](https://travis-ci.org/nfour/types-installer.svg?branch=master)](https://travis-ci.org/nfour/types-installer)
 
 # Types Installer
