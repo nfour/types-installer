@@ -14,11 +14,11 @@ export function getDependencies(
   packageJson = packageJson || require(join(process.cwd(), 'package.json'));
 
   const selections: ISelections = {
-    dependencies: packageJson.dependencies,
-    devDependencies: packageJson.devDependencies,
+    dependencies: packageJson.dependencies || {},
+    devDependencies: packageJson.devDependencies || {},
     all: {
-      ...packageJson.devDependencies,
-      ...packageJson.dependencies,
+      ...packageJson.devDependencies || {},
+      ...packageJson.dependencies || {},
     },
   };
 
@@ -39,7 +39,7 @@ export async function installTypes(dependencies: string[], { toDev = false, sele
   const installs = dependencies.map(async (key) => {
     const typeKey = `@types/${key}`;
 
-    const saveTo = toDev || key in selections.devDependencies ? '--dev' : '';
+    const saveTo = toDev || (key in selections.devDependencies) ? '--dev' : '';
 
     try {
       const { stdout } = await shell(`${directory} ${installer} ${saveTo} ${typeKey}`, {
