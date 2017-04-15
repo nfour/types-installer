@@ -86,18 +86,18 @@ export const interactiveInstall = async () => {
       type: 'list',
       name: 'selection',
       message: `Install options:`,
-      default: 2,
+      default: 0,
       choices: [
+        'all',
         'dependencies',
         'devDependencies',
-        'all',
       ],
     },
     {
       type: 'confirm',
       name: 'toDev',
-      message: `Install @types/* to ${c.cyan('devDependencies')}?`,
-      default: true,
+      message: `Install all @types/* to ${c.cyan('devDependencies')}?`,
+      default: false,
     },
   ]);
 
