@@ -5,6 +5,9 @@
   "main": "./actions",
   "author": "nfour <novus.nfour@gmail.com>",
   "license": "MIT",
+  "keywords": [
+    "typescript", "types", "typings", "install", "cli"
+  ],
   "bin": {
     "types-installer": "./bin/types-installer.js",
     "types-installer-src": "./src/bin/types-installer-src.ts"
