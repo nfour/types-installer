@@ -2,7 +2,7 @@
   "name": "types-installer",
   "version": "1.0.0",
   "description": "Installs from @types for your existing dependencies",
-  "main": "index.js",
+  "main": "./actions",
   "author": "nfour <novus.nfour@gmail.com>",
   "license": "MIT",
   "bin": {
