@@ -16,6 +16,10 @@
     "types-installer": "./bin/types-installer.js",
     "types-installer-src": "./src/bin/types-installer-src.ts"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nfour/types-installer"
+  },
   "scripts": {
     "test": "jest --config .jestrc",
     "lint": "tslint src",
