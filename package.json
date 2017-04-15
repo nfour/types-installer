@@ -1,7 +1,7 @@
 {
   "name": "types-installer",
   "version": "1.2.7",
-  "description": "Installs from @types for your existing dependencies",
+  "description": "Installs @types for your existing dependencies",
   "main": "./actions",
   "author": "nfour <novus.nfour@gmail.com>",
   "license": "MIT",
