@@ -2,3 +2,4 @@ node_modules
 yarn-err*
 npm-err*
 dist
+.coverage

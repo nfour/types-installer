@@ -4,6 +4,9 @@ node_js: ["7"]
 cache:
   yarn: true
 
+before_install:
+  - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
+  
 install:
   - yarn install
 
@@ -11,4 +14,4 @@ script:
   - yarn lint
   - yarn build
   - yarn coverage
-  - codecov
+  - yarn release

@@ -47,7 +47,7 @@ export async function installTypes(dependencies: string[], { toDev = false, sele
       console.log('\n', stdout, '\n');
     } catch (err) {
       console.log(c.yellow(typeKey), 'not found or failed to install');
-      console.error(c.red(err));
+      if (process.env.DEBUG) console.error(c.red(err));
     }
   });
 
