@@ -8,13 +8,14 @@ A CLI which updates and populates missing `@types/*` for your dependencies.
 Globally `yarn global add types-installer`
 or locally `yarn add types-installer`
 
-## CLI Interactive
+## CLI
 
 #### Interactive
-- Run `types-installer` and follow the prompts
+`types-installer` and follow the prompts
 
 ```bash
 [0] % types-installer
+
 ? Install options: all
 ? Install @types/* to devDependencies? Yes
 Installing all @type dependencies...
@@ -26,22 +27,29 @@ Installing all @type dependencies...
 @types/execa not found or failed to install
 @types/tslint not found or failed to install
 @types/chalk found
+
 success Saved 1 new dependency.
 └─ @types/chalk@0.4.31
+
 @types/typescript not found or failed to install
 @types/commander not found or failed to install
 @types/jest found
+
 success Saved 1 new dependency.
 └─ @types/jest@19.2.2
+
 @types/inquirer found
+
+success Saved 1 new dependency.
 └─ @types/inquirer@0.0.32
 ```
 
 #### Non-Interactive
-- Run `types-installer install`
+`types-installer install`
 
 ```bash
 [0] % types-installer install
+
 Installing all @type dependencies...
 ? select jest (Installed), ts-jest , ts-node , tslint , tslint-eslint-rules , typescript , chalk , commander (Installed), execa , inquirer
 
@@ -51,18 +59,24 @@ Installing all @type dependencies...
 @types/execa not found or failed to install
 @types/tslint not found or failed to install
 @types/chalk found
+
 success Saved 1 new dependency.
 └─ @types/chalk@0.4.31
+
 @types/typescript not found or failed to install
 @types/commander not found or failed to install
 @types/jest found
+
 success Saved 1 new dependency.
 └─ @types/jest@19.2.2
+
 @types/inquirer found
+
+success Saved 1 new dependency.
 └─ @types/inquirer@0.0.32
 ```
 
-- Run `types-installer install chalk`
+`types-installer install chalk`
 ```bash
 [130] % types-installer-src install chalk
 Installing dependency chalk @types
@@ -73,10 +87,10 @@ success Saved 1 new dependency.
 
 #### Help
 
-- Run `types-installer --help` for more options
+`types-installer --help` for more options
 
 
 ## Behavior
 
-Types are stored into either `dependencies` or `devDependencies` depending on whether the original dependency exists in either. \
-To force everything top be saved into `devDependencies`, add the `--toDev` flag
+- Types are by default saved to `dependencies` or `devDependencies`, wherever the dependency exists.
+- To force everything top be saved into `devDependencies`, add the `--toDev` flag.
