@@ -1,5 +1,4 @@
-[![NPM](https://nodei.co/npm/types-installer.png)](https://nodei.co/npm/types-installer/) 
-[![Build Status](https://travis-ci.org/nfour/types-installer.svg?branch=master)](https://travis-ci.org/nfour/types-installer)
+[![NPM](https://nodei.co/npm/types-installer.png)](https://nodei.co/npm/types-installer/) [![Build Status](https://travis-ci.org/nfour/types-installer.svg?branch=master)](https://travis-ci.org/nfour/types-installer)
 
 # Types Installer
 
