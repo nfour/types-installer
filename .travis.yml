@@ -17,6 +17,6 @@ script:
 
 deploy:
   provider: script
-  script: yarn release
+  script: npm run release
   on:
     tags: true
