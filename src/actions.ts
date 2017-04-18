@@ -1,3 +1,4 @@
+import * as Bluebird from "bluebird";
 import * as c from 'chalk';
 import { shell } from 'execa';
 import * as inquirer from 'inquirer';
@@ -30,13 +31,13 @@ export function getDependencies(
   return { keys, selected, selections };
 }
 
-export async function installTypes(dependencies: string[], { toDev = false, selections, pwd = '' }) {
+export async function installTypes(dependencies: string[], { toDev = false, selections, pwd = '', concurrency = 1 }) {
   const { stdout: yarnPath } = await shell('which yarn');
 
   const installer = !yarnPath ? 'npm install --save' : `yarn add`;
   const directory = pwd ? `cd ${pwd} &&` : '';
 
-  const installs = dependencies.map(async (key) => {
+  const installs = await Bluebird.map(dependencies, async (key) => {
     const typeKey = `@types/${key}`;
 
     const saveTo = toDev || (key in selections.devDependencies) ? '--dev' : '';
@@ -52,9 +53,9 @@ export async function installTypes(dependencies: string[], { toDev = false, sele
       console.log(c.yellow(typeKey), 'not found or failed to install');
       if (process.env.DEBUG) console.error(c.red(err));
     }
-  });
+  }, { concurrency });
 
-  return Promise.all(installs);
+  return installs;
 }
 
 export const install = async ({ selection = 'all', toDev = false, dependency = '' } = {}) => {

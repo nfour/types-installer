@@ -28,6 +28,7 @@
     "build": "./scripts/build"
   },
   "dependencies": {
+    "bluebird": "^3.5.0",
     "chalk": "^1.1.3",
     "commander": "^2.9.0",
     "execa": "^0.6.3",
