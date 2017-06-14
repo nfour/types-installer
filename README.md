@@ -22,27 +22,11 @@ A CLI which updates and populates missing `@types/*` for your dependencies.
   Installing all @type dependencies...
   ? select jest (Installed), ts-jest , ts-node , tslint , tslint-eslint-rules , typescript , chalk , commander (Installed), execa , inquirer
 
-  @types/ts-jest not found or failed to install
-  @types/tslint-eslint-rules not found or failed to install
-  @types/ts-node not found or failed to install
-  @types/execa not found or failed to install
   @types/tslint not found or failed to install
   @types/chalk found
 
   success Saved 1 new dependency.
   └─ @types/chalk@0.4.31
-
-  @types/typescript not found or failed to install
-  @types/commander not found or failed to install
-  @types/jest found
-
-  success Saved 1 new dependency.
-  └─ @types/jest@19.2.2
-
-  @types/inquirer found
-
-  success Saved 1 new dependency.
-  └─ @types/inquirer@0.0.32
 ```
 
 #### Non-Interactive
@@ -51,31 +35,16 @@ A CLI which updates and populates missing `@types/*` for your dependencies.
 
   Installing all @type dependencies...
 
-  @types/ts-jest not found or failed to install
-  @types/tslint-eslint-rules not found or failed to install
-  @types/ts-node not found or failed to install
-  @types/execa not found or failed to install
   @types/tslint not found or failed to install
   @types/chalk found
 
   success Saved 1 new dependency.
   └─ @types/chalk@0.4.31
 
-  @types/typescript not found or failed to install
-  @types/commander not found or failed to install
-  @types/jest found
-
-  success Saved 1 new dependency.
-  └─ @types/jest@19.2.2
-
-  @types/inquirer found
-
-  success Saved 1 new dependency.
-  └─ @types/inquirer@0.0.32
 ```
 
 ```bash
-% types-installer-src install chalk
+% types-installer install chalk
 
   Installing dependency chalk @types
   @types/chalk found
