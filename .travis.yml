@@ -4,9 +4,6 @@ node_js: ["6.10"]
 cache:
   yarn: true
 
-before_install:
-  - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
-
 install:
   - yarn install
 
@@ -17,6 +14,8 @@ script:
 
 deploy:
   provider: script
-  script: npm run release
+  script:
+    - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
+    - npm run release
   on:
     tags: true
