@@ -33,10 +33,43 @@ export function getDependencies (
   return { keys, selected, selections };
 }
 
-export async function installTypes (dependencies: string[], { toDev = false, selections, pwd = '', concurrency = 1 }) {
-  const { stdout: yarnPath } = await shell('which yarn');
+async function getYarnVersion () {
+  try {
+    const result = await shell('yarn --version');
+    return result.stdout;
+  } catch (ex) {
+    return '';
+  }
+}
 
-  const installer = !yarnPath ? 'npm install --save' : `yarn add`;
+export interface IInstallTypesOptions {
+  toDev?: boolean;
+  selections?: any;
+  pwd?: string;
+  concurrency?: number;
+  packageManager?: string;
+}
+
+export async function installTypes (
+  dependencies: string[],
+  { toDev = false, selections, pwd = '', concurrency = 1, packageManager }: IInstallTypesOptions,
+) {
+  if (typeof packageManager === 'undefined') {
+    packageManager = await getYarnVersion() ? 'yarn' : 'npm';
+  }
+
+  let installer: string;
+  switch (packageManager) {
+  case 'npm':
+    installer = 'npm install --save';
+    break;
+  case 'yarn':
+    installer = 'yarn add';
+    break;
+  default:
+    throw new Error(`Unknown package manager option: ${packageManager}`);
+  }
+
   const directory = pwd ? `cd ${pwd} &&` : '';
 
   const installs = await Bluebird.map(dependencies, async (key) => {
