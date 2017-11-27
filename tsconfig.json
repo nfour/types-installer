@@ -7,7 +7,6 @@
     "declaration": true,
     "inlineSourceMap": true,
     "inlineSources": true,
-    "allowSyntheticDefaultImports": true,
     "strictNullChecks": true,
     "noUnusedLocals": true,
     "lib": [
