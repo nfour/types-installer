@@ -22,9 +22,10 @@
   "scripts": {
     "test": "jest",
     "lint": "tslint -p tsconfig.json",
-    "coverage": "jest --config .jestrc --coverage",
+    "coverage": "jest --coverage",
     "release": "cd dist && npm publish",
-    "build": "./scripts/build"
+    "build": "./scripts/build",
+    "preversion": "yarn lint && yarn build && yarn coverage"
   },
   "dependencies": {
     "bluebird": "^3.5.0",
