@@ -1,6 +1,6 @@
 import { writeFileSync } from 'fs';
 import { join } from 'path';
-import { getDependencies, installTypes } from "../actions";
+import { getDependencies, installTypes } from '../actions';
 
 describe('actions', () => {
   const pwd = join(__dirname, 'testProject');
@@ -32,8 +32,8 @@ describe('actions', () => {
     const actualPackage = require(actualPackagePath);
 
     [
-      [ actualPackage.dependencies, expectedPackage.dependencies ],
-      [ actualPackage.devDependencies, expectedPackage.devDependencies ],
+      [actualPackage.dependencies, expectedPackage.dependencies],
+      [actualPackage.devDependencies, expectedPackage.devDependencies],
     ].forEach(([actual, expected]) => {
       expect(Object.keys(actual).sort()).toEqual(Object.keys(expected).sort());
     });

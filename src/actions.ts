@@ -1,13 +1,15 @@
-import * as Bluebird from "bluebird";
+import * as Bluebird from 'bluebird';
 import * as c from 'chalk';
 import { shell } from 'execa';
 import * as inquirer from 'inquirer';
 import { join } from 'path';
 
+// tslint:disable:no-console
+
 export interface IDependencies { [key: string]: string; }
 export interface ISelections { [key: string]: IDependencies; }
 
-export function getDependencies(
+export function getDependencies (
   { selection = 'all', packageJson }: {
     selection?: string,
     packageJson?: any,
@@ -31,7 +33,7 @@ export function getDependencies(
   return { keys, selected, selections };
 }
 
-export async function installTypes(dependencies: string[], { toDev = false, selections, pwd = '', concurrency = 1 }) {
+export async function installTypes (dependencies: string[], { toDev = false, selections, pwd = '', concurrency = 1 }) {
   const { stdout: yarnPath } = await shell('which yarn');
 
   const installer = !yarnPath ? 'npm install --save' : `yarn add`;
@@ -51,7 +53,7 @@ export async function installTypes(dependencies: string[], { toDev = false, sele
       console.log('\n', stdout, '\n');
     } catch (err) {
       console.log(c.yellow(typeKey), 'not found or failed to install');
-      if (process.env.DEBUG) console.error(c.red(err));
+      if (process.env.DEBUG) { console.error(c.red(err)); }
     }
   }, { concurrency });
 
@@ -74,7 +76,7 @@ export const install = async ({ selection = 'all', toDev = false, dependency = '
   }
 
   if (!keys.length) {
-    console.error(c.yellow("No dependencies to install"));
+    console.error(c.yellow('No dependencies to install'));
     return;
   }
 
@@ -105,7 +107,7 @@ export const interactiveInstall = async () => {
   const { keys, selections } = getDependencies({ selection });
 
   if (!keys.length) {
-    console.error(c.yellow("No dependencies to install"));
+    console.error(c.yellow('No dependencies to install'));
     return;
   }
 

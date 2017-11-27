@@ -20,11 +20,12 @@
     "url": "https://github.com/nfour/types-installer"
   },
   "scripts": {
-    "test": "jest --config .jestrc",
-    "lint": "tslint src",
-    "coverage": "jest --config .jestrc --coverage",
+    "test": "jest",
+    "lint": "tslint -p tsconfig.json",
+    "coverage": "jest --coverage",
     "release": "cd dist && npm publish",
-    "build": "./scripts/build"
+    "build": "./scripts/build",
+    "preversion": "yarn lint && yarn build && yarn coverage"
   },
   "dependencies": {
     "bluebird": "^3.5.0",
@@ -34,18 +35,19 @@
     "inquirer": "^3.0.6"
   },
   "devDependencies": {
-    "@types/chalk": "^0.4.31",
     "@types/bluebird": "^3.5.2",
+    "@types/chalk": "^0.4.31",
     "@types/commander": "^2.9.0",
     "@types/inquirer": "^0.0.33",
-    "@types/jest": "^19.2.2",
-    "@types/node": "^7.0.12",
+    "@types/jest": "^21.1.8",
+    "@types/node": "^8.0.53",
     "@types/typescript": "^2.0.0",
-    "jest": "^19.0.2",
-    "ts-jest": "^19.0.9",
-    "ts-node": "^3.0.2",
-    "tslint": "^5.1.0",
+    "jest": "^21.2.1",
+    "ts-jest": "^21.2.3",
+    "ts-node": "^3.3.0",
+    "tslint": "^5.8.0",
+    "tslint-config-temando": "^1.5.11",
     "tslint-eslint-rules": "^4.0.0",
-    "typescript": "^2.2.2"
+    "typescript": "^2.6.1"
   }
 }

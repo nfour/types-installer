@@ -16,5 +16,6 @@ commander
 commander.parse(process.argv);
 
 if (!commander.args.length) {
+  // tslint:disable-next-line:no-floating-promises
   actions.interactiveInstall();
 }
