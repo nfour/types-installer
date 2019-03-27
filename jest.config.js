@@ -6,7 +6,7 @@ module.exports = {
   "coverageDirectory": ".coverage",
   "coverageReporters": ['text', 'text-summary'],
   "coverageThreshold": {
-    "global": { lines: 60 }
+    "global": { lines: 50 }
   },
   "testPathIgnorePatterns": [
     "/node_modules/",
