@@ -2,7 +2,9 @@
   "name": "testProject",
   "version": "1.0.0",
   "devDependencies": {
+    "@storybook/addons": "5.0.5",
     "@types/jest": "19.2.2",
+    "@types/storybook__addons": "^4.1.0",
     "jest": "19.0.2"
   },
   "dependencies": {

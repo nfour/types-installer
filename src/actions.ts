@@ -50,35 +50,32 @@ export interface IInstallTypesOptions {
   packageManager?: string;
 }
 
+/** @mything/banana becomes mything__banana */
+const normalizeName = (name: string) =>
+  /^@/.test(name)
+    ? name.slice(1).split('/').join('__')
+    : name;
+
 export async function installTypes (
   dependencies: string[],
   { toDev = false, selections, pwd = '', concurrency = 1, packageManager }: IInstallTypesOptions,
 ) {
-  if (typeof packageManager === 'undefined') {
-    packageManager = await getYarnVersion() ? 'yarn' : 'npm';
-  }
+  packageManager = await getYarnVersion() ? 'yarn' : 'npm';
 
-  let installer: string;
-  switch (packageManager) {
-  case 'npm':
-    installer = 'npm install --save';
-    break;
-  case 'yarn':
-    installer = 'yarn add';
-    break;
-  default:
-    throw new Error(`Unknown package manager option: ${packageManager}`);
-  }
+  const installCommand = (() => {
+    if (packageManager === 'yarn') { return 'yarn add'; }
+    return 'npm install --save';
+  })();
 
   const directory = pwd ? `cd ${pwd} &&` : '';
 
-  const installs = await Bluebird.map(dependencies, async (key) => {
-    const typeKey = `@types/${key}`;
+  const installs = await Bluebird.map(dependencies, async (actualName) => {
+    const typeKey = `@types/${normalizeName(actualName)}`;
 
-    const saveTo = toDev || (key in selections.devDependencies) ? '--dev' : '';
+    const saveTo = toDev || (actualName in selections.devDependencies) ? '--dev' : '';
 
     try {
-      const { stdout } = await shell(`${directory} ${installer} ${saveTo} ${typeKey}`, {
+      const { stdout } = await shell(`${directory} ${installCommand} ${saveTo} ${typeKey}`, {
         env: { ...process.env, FORCE_COLOR: true },
       });
 

@@ -1,5 +1,6 @@
 import { writeFileSync } from 'fs';
 import { join } from 'path';
+
 import { getDependencies, installTypes } from '../actions';
 
 describe('actions', () => {
@@ -26,7 +27,7 @@ describe('actions', () => {
       packageJson: require('./testProject/sample.package.json'),
     });
 
-    expect(resolved.keys.sort()).toEqual(['chalk', 'jest'].sort());
+    expect(resolved.keys.sort()).toEqual(['@storybook/addons', 'chalk', 'jest'].sort());
   });
 
   it('installs types w/ yarn', async () => {
