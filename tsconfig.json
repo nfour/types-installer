@@ -13,6 +13,6 @@
       "es2015"
     ]
   },
-  "exclude": [ "dist" ],
+  "exclude": [ "dist","src/__tests__/testProject/**/*" ],
   "include": [ "src/**/*" ]
 }
