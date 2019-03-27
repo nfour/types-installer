@@ -7,11 +7,15 @@ import { join } from 'path';
 // tslint:disable:no-console
 
 export interface IDependencies { [key: string]: string; }
-export interface ISelections { [key: string]: IDependencies; }
+export interface ISelections {
+  dependencies: IDependencies;
+  devDependencies: IDependencies;
+  all: IDependencies;
+}
 
 export function getDependencies (
   { selection = 'all', packageJson }: {
-    selection?: string,
+    selection?: keyof ISelections,
     packageJson?: any,
   } = {}) {
   packageJson = packageJson || require(join(process.cwd(), 'package.json'));
@@ -42,12 +46,17 @@ async function getYarnVersion () {
   }
 }
 
-export interface IInstallTypesOptions {
+export interface IInstallOptions {
   toDev?: boolean;
-  selections?: any;
+  selection?: keyof ISelections;
+  packageManager?: 'npm' | 'yarn' | 'pnpm';
+  deps?: string;
+}
+
+export interface IInstallTypesOptions extends IInstallOptions {
+  selections: ISelections;
   pwd?: string;
   concurrency?: number;
-  packageManager?: string;
 }
 
 /** @mything/banana becomes mything__banana */
@@ -56,33 +65,38 @@ const normalizeName = (name: string) =>
     ? name.slice(1).split('/').join('__')
     : name;
 
+const getTypeDepName = (name: string) => `@types/${normalizeName(name)}`;
+
 export async function installTypes (
   dependencies: string[],
-  { toDev = false, selections, pwd = '', concurrency = 1, packageManager }: IInstallTypesOptions,
+  { selections, toDev = false, pwd = '', concurrency = 1, packageManager }: IInstallTypesOptions,
 ) {
-  packageManager = await getYarnVersion() ? 'yarn' : 'npm';
 
-  const installCommand = (() => {
+  const installCommand = await (async () => {
+    if (packageManager === 'pnpm') { return 'pnpm install'; }
+
+    packageManager = packageManager || await getYarnVersion() ? 'yarn' : 'npm';
+
     if (packageManager === 'yarn') { return 'yarn add'; }
-    return 'npm install --save';
+
+    return 'npm install';
   })();
 
   const directory = pwd ? `cd ${pwd} &&` : '';
 
   const installs = await Bluebird.map(dependencies, async (actualName) => {
-    const typeKey = `@types/${normalizeName(actualName)}`;
-
+    const typeDep = getTypeDepName(actualName);
     const saveTo = toDev || (actualName in selections.devDependencies) ? '--dev' : '';
 
     try {
-      const { stdout } = await shell(`${directory} ${installCommand} ${saveTo} ${typeKey}`, {
+      const { stdout } = await shell(`${directory} ${installCommand} ${saveTo} ${typeDep}`, {
         env: { ...process.env, FORCE_COLOR: true },
       });
 
-      console.log(c.green(typeKey), 'found');
+      console.log(c.green(typeDep), 'found');
       console.log('\n', stdout, '\n');
     } catch (err) {
-      console.log(c.yellow(typeKey), 'not found or failed to install');
+      console.log(c.yellow(typeDep), 'not found or failed to install');
       if (process.env.DEBUG) { console.error(c.red(err)); }
     }
   }, { concurrency });
@@ -90,9 +104,9 @@ export async function installTypes (
   return installs;
 }
 
-export const install = async ({ selection = 'all', toDev = false, dependency = '' } = {}) => {
-  if (dependency) {
-    console.log(`Installing dependency ${c.cyan.bold(dependency || selection)} @types`);
+export const install = async ({ selection = 'all', toDev = false, deps = '' }: IInstallOptions = {}) => {
+  if (deps) {
+    console.log(`Installing dependency ${c.cyan.bold(deps || selection)} @types`);
   } else {
     console.log(`Installing ${c.cyan.bold(selection)} @types`);
   }
@@ -101,8 +115,8 @@ export const install = async ({ selection = 'all', toDev = false, dependency = '
   const { selections } = results;
   let { keys } = results;
 
-  if (dependency) {
-    keys = keys.filter((key) => key === dependency);
+  if (deps) {
+    keys = keys.filter((key) => key === deps);
   }
 
   if (!keys.length) {
@@ -114,7 +128,7 @@ export const install = async ({ selection = 'all', toDev = false, dependency = '
 };
 
 export const interactiveInstall = async () => {
-  const { selection, toDev } = await inquirer.prompt([
+  const { selection, toDev, packageManager } = await inquirer.prompt([
     {
       type: 'list',
       name: 'selection',
@@ -131,6 +145,13 @@ export const interactiveInstall = async () => {
       name: 'toDev',
       message: `Install all @types/* to ${c.cyan('devDependencies')}?`,
       default: false,
+    },
+    {
+      type: 'list',
+      name: 'packageManager',
+      message: `Which package manager?:`,
+      default: 'yarn',
+      choices: ['yarn', 'npm', 'pnpm'] as Array<Required<IInstallOptions>['packageManager']>,
     },
   ]);
 
@@ -149,19 +170,18 @@ export const interactiveInstall = async () => {
       type: 'checkbox',
       name: 'selectedKeys',
       message: 'select',
-
-      choices: keys.map((key) => {
-        const typeKey = `@types/${key}`;
-        const isAlreadyTyped = typeKey in selections.all;
+      choices: keys.map((depName) => {
+        const typeDep = getTypeDepName(depName);
+        const isAlreadyTyped = typeDep in selections.all;
 
         return {
-          name: `${key} ${isAlreadyTyped ? c.grey('(Installed)') : ''}`,
-          value: key,
+          name: `${depName} ${isAlreadyTyped ? c.grey(`(Installed: ${typeDep})`) : ''}`,
+          value: depName,
           checked: true,
         };
       }),
     },
   ]);
 
-  await installTypes(selectedKeys, { toDev, selections });
+  await installTypes(selectedKeys, { toDev, selections, packageManager });
 };
