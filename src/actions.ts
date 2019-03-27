@@ -106,9 +106,9 @@ export async function installTypes (
 
 export const install = async ({ selection = 'all', toDev = false, deps = '' }: IInstallOptions = {}) => {
   if (deps) {
-    console.log(`Installing dependency ${c.cyan.bold(deps || selection)} @types`);
+    console.log(`Installing dependency ${c.cyan.bold(deps || selection)} in @types`);
   } else {
-    console.log(`Installing ${c.cyan.bold(selection)} @types`);
+    console.log(`Installing ${c.cyan.bold(selection)} in @types`);
   }
 
   const results = getDependencies({ selection });
