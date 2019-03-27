@@ -32,7 +32,7 @@ yarn types-installer
 
   - interactive
 
-  - install [options] [dependency...]
+  - install [options] [dependency]
       -s, --selection <selection>  devDependencies, dependencies or all
       -D, --toDev                  Save all types to devDependencies
       -p, --packageManager         Choose a package manager: npm, yarn or pnpm
