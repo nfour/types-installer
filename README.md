@@ -8,7 +8,7 @@ A CLI which updates and populates missing `@types/*` for your dependencies.
 ```bash
 yarn global add types-installer
 # or
-npm i -g types-install
+npm i -g types-installer
 # then
 types-installer
 ```
