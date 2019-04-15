@@ -1,6 +1,6 @@
 {
   "name": "types-installer",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "description": "Installs @types for your existing dependencies",
   "main": "./actions",
   "author": "nfour <novus.nfour@gmail.com>",
