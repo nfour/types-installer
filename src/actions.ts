@@ -75,7 +75,7 @@ export async function installTypes (
   const installCommand = await (async () => {
     if (packageManager === 'pnpm') { return 'pnpm install'; }
 
-    packageManager = packageManager || await getYarnVersion() ? 'yarn' : 'npm';
+    packageManager = packageManager || (await getYarnVersion() ? 'yarn' : 'npm');
 
     if (packageManager === 'yarn') { return 'yarn add'; }
 
