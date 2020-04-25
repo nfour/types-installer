@@ -86,7 +86,7 @@ export async function installTypes (
 
   const installs = await Bluebird.map(dependencies, async (actualName) => {
     const typeDep = getTypeDepName(actualName);
-    const saveTo = toDev || (actualName in selections.devDependencies) ? '--dev' : '';
+    const saveTo = toDev || (actualName in selections.devDependencies) ? '--save-dev' : '';
 
     try {
       const { stdout } = await shell(`${directory} ${installCommand} ${saveTo} ${typeDep}`, {
