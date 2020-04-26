@@ -3,3 +3,5 @@ yarn-err*
 npm-err*
 dist
 .coverage
+.prettierrc
+.vscode
