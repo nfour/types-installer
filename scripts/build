@@ -9,7 +9,7 @@ cp * dist 2>&1 | grep -v 'omitting directory'
 cp .* dist 2>&1 | grep -v 'omitting directory'
 
 # Build typescript
-yarn tsc
+tsc
 
 # Copy latent files from source, recursively
 cd src
