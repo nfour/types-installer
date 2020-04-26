@@ -99,7 +99,14 @@ export async function installTypes(
     dependencies,
     async (actualName) => {
       const typeDep = getTypeDepName(actualName);
-
+      let saveTo: string;
+      if (installCommand !== "yarn add") {
+        saveTo =
+          toDev || actualName in selections.devDependencies ? "--save-dev" : "";
+      } else {
+        saveTo =
+          toDev || actualName in selections.devDependencies ? "--dev" : "";
+      }
       try {
         const { stdout } = await shell(
           `${directory} ${installCommand} ${saveTo} ${typeDep}`,
