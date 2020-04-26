@@ -1,8 +1,8 @@
 import * as Bluebird from 'bluebird';
 import * as c from 'chalk';
-import { shell } from 'execa';
+import {shell} from 'execa';
 import * as inquirer from 'inquirer';
-import { join } from 'path';
+import {join} from 'path';
 
 // tslint:disable:no-console
 
@@ -37,7 +37,7 @@ export function getDependencies({
 
   const keys = Object.keys(selected).filter((key) => !/^@types\//.test(key));
 
-  return { keys, selected, selections };
+  return {keys, selected, selections};
 }
 
 async function getYarnVersion() {
@@ -108,10 +108,10 @@ export async function installTypes(
           toDev || actualName in selections.devDependencies ? '--dev' : '';
       }
       try {
-        const { stdout } = await shell(
+        const {stdout} = await shell(
           `${directory} ${installCommand} ${saveTo} ${typeDep}`,
           {
-            env: { ...process.env, FORCE_COLOR: true },
+            env: {...process.env, FORCE_COLOR: true},
           }
         );
 
@@ -124,7 +124,7 @@ export async function installTypes(
         }
       }
     },
-    { concurrency }
+    {concurrency}
   );
 
   return installs;
@@ -143,9 +143,9 @@ export const install = async ({
     console.log(`Installing ${c.cyan.bold(selection)} in @types`);
   }
 
-  const results = getDependencies({ selection });
-  const { selections } = results;
-  let { keys } = results;
+  const results = getDependencies({selection});
+  const {selections} = results;
+  let {keys} = results;
 
   if (deps) {
     keys = keys.filter((key) => key === deps);
@@ -156,11 +156,11 @@ export const install = async ({
     return;
   }
 
-  await installTypes(keys, { toDev, selections });
+  await installTypes(keys, {toDev, selections});
 };
 
 export const interactiveInstall = async () => {
-  const { selection, toDev, packageManager } = await inquirer.prompt([
+  const {selection, toDev, packageManager} = await inquirer.prompt([
     {
       type: 'list',
       name: 'selection',
@@ -185,7 +185,7 @@ export const interactiveInstall = async () => {
     },
   ]);
 
-  const { keys, selections } = getDependencies({ selection });
+  const {keys, selections} = getDependencies({selection});
 
   if (!keys.length) {
     console.error(c.yellow('No dependencies to install'));
@@ -195,7 +195,7 @@ export const interactiveInstall = async () => {
   console.log(`Installing ${c.cyan.bold(selection)} @type dependencies...`);
   console.log();
 
-  const { selectedKeys } = await inquirer.prompt([
+  const {selectedKeys} = await inquirer.prompt([
     {
       type: 'checkbox',
       name: 'selectedKeys',
@@ -215,5 +215,5 @@ export const interactiveInstall = async () => {
     },
   ]);
 
-  await installTypes(selectedKeys, { toDev, selections, packageManager });
+  await installTypes(selectedKeys, {toDev, selections, packageManager});
 };
