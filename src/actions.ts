@@ -86,7 +86,7 @@ export async function installTypes (
 
   const installs = await Bluebird.map(dependencies, async (actualName) => {
     const typeDep = getTypeDepName(actualName);
-       let saveTo: string;
+    const saveTo = toDev || (actualName in selections.devDependencies) ? '-D' : '';	
       if (installCommand !== 'yarn add') {
         saveTo =
           toDev || actualName in selections.devDependencies ? '--save-dev' : '';
